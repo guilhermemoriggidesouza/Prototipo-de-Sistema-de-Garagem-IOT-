@@ -1,0 +1,9 @@
+body{
+    margin:0 auto !important;
+    overflow-x:hidden ;
+}
+.big{
+    position: fixed;
+    margin: auto;
+    width:100%;
+}
