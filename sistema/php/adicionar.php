@@ -9,7 +9,7 @@ $temp = date('h:i');
             
 $date = date('d:m:y');
 //cria objeto  para cadastrar
-$hcr =  new Cadastrar($val, $temp, $date, $mysqli);
+$hcr =  new Cadastrar;
 //define valor
 $valor = "";
 //seleciona o dado da  tabela de controle pra ver se o sistema está ligado ou desligado      
@@ -19,11 +19,10 @@ $rows = mysqli_fetch_assoc($query)or die(mysqli_error($mysqli));
 //atribui esse dado ao valor
 if($total>0){
     $valor = $rows["estado"];
-
-}     
+}
 //caso o dado seja "ligado", inicia o cadastro
 if($valor == "ligado"){
-    $hcr->cadastrando();
+    $hcr->cadastrando($val, $temp, $date, $mysqli);
 }else{
     echo "Sistema Desligado";
 }

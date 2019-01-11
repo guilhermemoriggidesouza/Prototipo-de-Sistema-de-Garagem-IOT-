@@ -11,24 +11,25 @@ function addButton(){
     //cria um laço q a cada 200 milisegundos enviauma solicitação para receber os dados e trata-los
     giro = setInterval(function(){
         let recebido = "";
-        $.post("php/select_monitorado.php", {teste: "test"}, function(valor){
-        recebido = valor;
-        //tratando os dados
-        if(recebido<10){
-            $("#dados").html("<h1 class='display-1 text-center'>PARAAA</h1>");
-            $("#gif").html("<img class='big text-center' src='gifs/stop.gif'>");
-            console.log(recebido);
-        }else if(recebido >= 51){
-            $("#dados").html("<h1 class='display-1 text-center'>Carro a mais de "+recebido+" centimetros da parede</h1>");
-            $("#gif").html("<img  class='big' src='gifs/podevir.gif'>");
-            console.log(recebido);
-        }else{
-            $("#dados").html("<h1 class='display-1 text-center'>"+recebido+" Centimetros da parede</h1>");
-            $("#gif").html("<img class='big' src='gifs/podevir.gif'>");
-            console.log(recebido);
-        }
-    });
-    } ,200);
+        $.ajax({url: "php/select_monitorado.php", success: function(result){
+            recebido = result;
+            if(recebido<10){
+                $("#dados").html("<h1 class='display-1 text-center'>PARAAA</h1>");
+                $("#gif").html("<img class='big text-center' src='gifs/stop.gif'>");
+                console.log(recebido);
+            }else if(recebido >= 51){
+                $("#dados").html("<h1 class='display-1 text-center'>Carro a mais de "+recebido+" centimetros da parede</h1>");
+                $("#gif").html("<img  class='big' src='gifs/podevir.gif'>");
+                console.log(recebido);
+            }else{
+                $("#dados").html("<h1 class='display-1 text-center'>"+recebido+" Centimetros da parede</h1>");
+                $("#gif").html("<img class='big' src='gifs/podevir.gif'>");
+                console.log(recebido);
+            }
+          }});
+       
+    } ,30);
+
 }
 //função que muda a tabela config para desligado, para o laço e limpa a tela
 function removeButton(){
@@ -40,5 +41,9 @@ function removeButton(){
     $("#dados").html("sistema desligado");
 
 }
-
-
+window.onbeforeunload = function () {
+    clearInterval(giro);
+    $.post("php/update.php", {estado: "desligado"}, function(valor){
+        $("#sistema").html(valor);
+    });
+};

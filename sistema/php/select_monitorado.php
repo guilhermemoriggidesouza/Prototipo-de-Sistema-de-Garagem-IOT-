@@ -1,9 +1,11 @@
 <?php
 //chamada da função que seleciona o valor do banco
 //aqui vem a chama post do JS, que  vai receber o select como resposta
-include "selecionar_function.php";
+require_once "Cadastrar.php";
+require_once "conectbanco.php";
 
     $data = isset($_POST["test"]);
-    
-    echo select();
+    $dados =  new Cadastrar;
+
+    echo $dados->select($mysqli);
 ?>
