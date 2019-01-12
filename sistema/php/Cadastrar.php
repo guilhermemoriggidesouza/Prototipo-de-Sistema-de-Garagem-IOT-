@@ -12,6 +12,7 @@ class Cadastrar{
     private $query;
     private $total;
     private $rows;
+    private $reset;
 
     public function cadastrando($valor, $temp, $data, $conn){
         $this->valorCm_sql = $valor;
@@ -28,9 +29,6 @@ class Cadastrar{
             return false;
         }
     }
-    public function resetar(){
-
-    }
     public function select($conn){
         $this->conn = $conn;
         $this->query = mysqli_query($this->conn, "SELECT * FROM garagem_moriggi ORDER BY id desc")or die(mysqli_error($this->conn));
@@ -38,14 +36,12 @@ class Cadastrar{
         $this->rows = mysqli_fetch_assoc($this->query)or die(mysqli_error($this->conn));
         if($this->total>0){
             $this->setResult($this->rows["val"]);
-        }elseif($this->total >5000){
-            $this->setResult($this->rows["val"]);
-            $this->reset();
+        }
+        if($this->total > 3000){
+            $this->setResult("truncate");
+            $this->reset = mysqli_query($this->conn, "TRUNCATE TABLE garagem_moriggi")or die(mysqli_error($this->conn));
         }
         return $this->getResult();
-    }
-    public function reset(){
-        $this->insert = mysqli_query($this->conn, "TRUNCATE TABLE garagem_moriggi")or die(mysqli_error($this->conn));
     }
     public function getTempo(){
         return $this->tempo;

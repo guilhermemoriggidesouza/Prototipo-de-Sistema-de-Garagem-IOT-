@@ -1,0 +1,19 @@
+ _________________________
+ |sistema completo       |
+ *************************
+ |para melhor utilização |
+ |integra-lo em um site, |
+ |pois o ip é dinâmico.  |
+ |                       |
+ *************************
+ |foto de montagem é     |
+ |ilustrativa            |
+ *************************
+ |tecnologias :          |
+ |php poo;               |
+ |jquery;                |
+ |javascript;            |
+ |bootstrap;             |
+ |c p/arduino;           |
+ |arduino ide;           |
+ *************************
